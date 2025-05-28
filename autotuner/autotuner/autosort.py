@@ -1,14 +1,11 @@
-# autosort_viz.py
-# Visualizer + Selector for AutoTuner sorting algorithms
+# autosort.py
 
-import matplotlib.pyplot as plt
-import seaborn as sns
-import os
-import random
-
-# --- SORT SELECTION MODULE ---
+import time
 from autotuner import features, model
 from autotuner.algorithms import classic, counting_based, external, hybrid, niche
+from autotuner.autosort_logger import autosort_logger
+from autotuner.visualizers import plot_decision_sort, plot_sort_array
+from autotuner.fallback import Fallback
 
 algorithm_map = {
     "insertion_sort": classic.insertion_sort,
@@ -31,75 +28,29 @@ algorithm_map = {
     "shell_sort": niche.shell_sort,
 }
 
-def autosort(arr):
+def autosort(arr, visualize=False):
     feats = features.extract_features(arr)
     best_algo_name = model.predict(feats)
-    selected_algo = algorithm_map.get(best_algo_name, hybrid.tim_sort)
-    sorted_arr = selected_algo(arr.copy())
+    sort_func = algorithm_map.get(best_algo_name)
+    if sort_func is None:
+        sorted_arr, best_algo_name = Fallback.sort(arr)
+        autosort_logger.log(arr, best_algo_name, 0)
+        return sorted_arr, best_algo_name
+    start = time.time()
+    sorted_arr = sort_func(arr.copy())
+    elapsed_ms = (time.time() - start) * 1000
+
+    autosort_logger.log(arr, best_algo_name, elapsed_ms)
+
+    if visualize:
+        plot_sort_array(arr, sorted_arr, best_algo_name)
+
     return sorted_arr, best_algo_name
 
-# --- VISUALIZATION MODULE ---
-
-def plot_decision_sort(history, save_path=None):
-    """
-    Plots algorithm choices over multiple runs
-    :param history: List of tuples [(algorithm_name, time_taken, timestamp), ...]
-    """
-    if not history:
-        print("No history to plot.")
-        return
-
-    sns.set_theme(style="whitegrid")
-    algorithms = [entry[0] for entry in history]
-    times = [entry[1] for entry in history]
-    runs = list(range(len(history)))
-
-    plt.figure(figsize=(10, 6))
-    sns.lineplot(x=runs, y=times, hue=algorithms, marker='o', palette="tab10")
-    plt.title("AutoTuner Sort Decisions Over Time")
-    plt.xlabel("Run")
-    plt.ylabel("Execution Time (ms)")
-    plt.legend(title="Algorithm")
-    if save_path:
-        os.makedirs(os.path.dirname(save_path), exist_ok=True)
-        plt.savefig(save_path)
-    plt.show()
-
-def plot_sort_array(before, after, algorithm_name, save_path=None):
-    """
-    Visualizes the array before and after sorting
-    """
-    sns.set_theme(style="white")
-    plt.figure(figsize=(12, 4))
-
-    plt.subplot(1, 2, 1)
-    sns.barplot(x=list(range(len(before))), y=before, color="skyblue")
-    plt.title("Original Array")
-
-    plt.subplot(1, 2, 2)
-    sns.barplot(x=list(range(len(after))), y=after, color="limegreen")
-    plt.title(f"Sorted Array ({algorithm_name})")
-
-    if save_path:
-        os.makedirs(os.path.dirname(save_path), exist_ok=True)
-        plt.savefig(save_path)
-    plt.tight_layout()
-    plt.show()
-
-# --- EXAMPLE USAGE ---
-if __name__ == "__main__":
-    history = []
-    for _ in range(5):
-        arr = random.sample(range(1, 100), 30)
-        sorted_arr, algo = autosort(arr)
-        import time
-        start = time.time()
-        algorithm_map[algo](arr.copy())
-        elapsed = (time.time() - start) * 1000  # ms
-
-        history.append((algo, elapsed))
-
-        print(f"Algorithm Used: {algo}")
-        plot_sort_array(arr, sorted_arr, algo)
-
-    plot_decision_sort(history)
+def visualize_autosort_history():
+    logs = autosort_logger.get_logs()
+    if logs:
+        history = [(entry["selected_algorithm"], entry["execution_time_ms"]) for entry in logs]
+        plot_decision_sort(history)
+    else:
+        print("No logs available for visualization.")
