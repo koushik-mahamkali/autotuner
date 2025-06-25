@@ -1,6 +1,6 @@
 [project]
 name = "autotuner_core"  # ✅ You control this name!
-version = "0.1.0"
+version = "0.1.1"
 description = "AutoTuner: A Self-Optimizing Algorithm Engine"
 readme = "README.md"
 requires-python = ">=3.7"
@@ -30,3 +30,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 include = ["autotuner_core", "autotuner_core.*"]
+
+[project.scripts]
+autotuner-graph = "autotuner_core.cli.graph_cli:main"
+autotuner-sort = "autotuner_core.cli.sort_cli:main"
