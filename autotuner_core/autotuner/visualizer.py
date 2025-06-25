@@ -1,13 +1,12 @@
 import os
 import sys
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import matplotlib.pyplot as plt
 import mplcyberpunk
 import networkx as nx
 import pandas as pd
 import seaborn as sns
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 plt.style.use("cyberpunk")
 
 

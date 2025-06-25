@@ -1,4 +1,4 @@
-from collections import defaultdict, deque
+from collections import deque
 
 
 def topo_sort(adj_list, num_nodes):

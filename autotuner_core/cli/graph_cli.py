@@ -116,9 +116,8 @@ def main():
                 plt.title("Graph Visualization")
                 plt.show()
             except ImportError:
-                print(
-                    " Visualization requires networkx and matplotlib. Install them via pip."
-                )
+                print(" Visualization requires networkx ")
+                print("and matplotlib. Install them via pip.")
     except Exception as e:
         print(f"\n Error while processing graph: {e}")
 
