@@ -1,10 +1,11 @@
 from collections import deque
 
+
 def bfs(graph, start):
     visited = set()
     queue = deque([start])
     result = []
-    
+
     while queue:
         node = queue.popleft()
         if node not in visited:
@@ -15,5 +16,5 @@ def bfs(graph, start):
                     neighbor = neighbor[0]
                 if neighbor not in visited:
                     queue.append(neighbor)
-                    
+
     return result

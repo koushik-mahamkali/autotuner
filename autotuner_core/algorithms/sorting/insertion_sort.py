@@ -1,5 +1,5 @@
 def insertion_sort(arr):
-    arr = arr.copy()  
+    arr = arr.copy()
     for i in range(1, len(arr)):
         key = arr[i]
         j = i - 1

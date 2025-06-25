@@ -1,6 +1,6 @@
 def dijkstra_matrix(matrix, start):
     n = len(matrix)
-    dist = [float('inf')] * n
+    dist = [float("inf")] * n
     dist[start] = 0
     visited = [False] * n
 

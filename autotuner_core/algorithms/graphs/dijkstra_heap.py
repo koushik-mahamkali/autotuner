@@ -1,6 +1,8 @@
 import heapq
+
+
 def dijkstra_heap(adj_list, start):
-    dist = {node: float('inf') for node in adj_list}
+    dist = {node: float("inf") for node in adj_list}
     dist[start] = 0
     visited = set()
     pq = [(0, start)]

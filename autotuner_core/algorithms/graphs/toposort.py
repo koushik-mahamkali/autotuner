@@ -1,4 +1,6 @@
-from collections import deque, defaultdict
+from collections import defaultdict, deque
+
+
 def topo_sort(adj_list, num_nodes):
     indegree = [0] * num_nodes
     for u in adj_list:

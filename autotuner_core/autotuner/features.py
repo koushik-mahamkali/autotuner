@@ -8,5 +8,5 @@ def get_array_features(arr):
         "size": n,
         "is_sorted": is_sorted,
         "is_reverse_sorted": is_reverse_sorted,
-        "sortedness_score": round(sortedness_score, 2)
+        "sortedness_score": round(sortedness_score, 2),
     }
