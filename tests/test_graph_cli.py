@@ -9,7 +9,6 @@ VALID_GRAPH_FILE = "temp_test_graph.json"
 INVALID_GRAPH_FILE = "nonexistent.json"
 
 def setup_module(module):
-    # Write a valid graph JSON file
     graph = {
         "0": [1, 2],
         "1": [0, 3],

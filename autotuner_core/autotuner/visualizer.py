@@ -9,16 +9,16 @@ import mplcyberpunk
 plt.style.use("cyberpunk")
 def plot_runtime_vs_size(csv_path="logs/sort_logs.csv"):
     if not os.path.exists(csv_path):
-        print("⚠️ No log file found. Run the demo first.")
+        print(" No log file found. Run the demo first.")
         return
     df = pd.read_csv(csv_path)
-    print("🧾 Columns:", df.columns.tolist())
+    print("Columns:", df.columns.tolist())
     if "size" not in df.columns or "time_ms" not in df.columns:
-        print("❌ CSV missing required columns.")
+        print(" CSV missing required columns.")
         return
     plt.figure(figsize=(10, 6), facecolor="#0f0f0f")
     sns.scatterplot(data=df, x="size", y="time_ms", hue="algorithm", style="algorithm", s=120, edgecolor='white')
-    plt.title("⏱ Runtime vs Input Size", fontsize=14, color='white')
+    plt.title(" Runtime vs Input Size", fontsize=14, color='white')
     plt.xlabel("Input Size", color='white')
     plt.ylabel("Time (ms)", color='white')
     plt.grid(True, linestyle='--', alpha=0.3)
@@ -31,7 +31,7 @@ def plot_algorithm_distribution(csv_path="logs/sort_logs.csv"):
     df = pd.read_csv(csv_path)
     plt.figure(figsize=(6, 6), facecolor="#0f0f0f")
     sns.countplot(data=df, x="algorithm", palette="pastel")
-    plt.title("🧠 Algorithm Selection Count", fontsize=14, color='white')
+    plt.title(" Algorithm Selection Count", fontsize=14, color='white')
     plt.xlabel("Algorithm", color='white')
     plt.ylabel("Number of Runs", color='white')
     plt.grid(True, linestyle='--', alpha=0.3)

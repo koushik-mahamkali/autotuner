@@ -36,7 +36,7 @@ def choose_sort_algorithm(arr, algo="auto"):
     elif algo == "quick_sort":
         chosen_algo = "quick_sort"
         sorted_arr = quick_sort(arr)
-    elif algo == "merge_sort":
+    elif algo in ["merge", "merge_sort"]:
         chosen_algo = "merge_sort"
         sorted_arr = merge_sort(arr)
     elif algo == "all_algorithms":

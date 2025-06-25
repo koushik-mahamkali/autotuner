@@ -77,6 +77,10 @@ def main():
             print(f"   {k}: {v}")
         print(f"\n Selected Algorithm: {result['algorithm']}")
         print(f" Output: {result['output']}")
+        if result['algorithm'] == "all_algorithms":
+            print("\n All Algorithm Outputs:")
+            for name, output in result['output'].items():
+                print(f"   {name}: {output}")
         if args.visualize:
             try:
                 import networkx as nx
@@ -99,5 +103,6 @@ def main():
                 print(" Visualization requires networkx and matplotlib. Install them via pip.")
     except Exception as e:
         print(f"\n Error while processing graph: {e}")
+        
 if __name__ == "__main__":
     main()

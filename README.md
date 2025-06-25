@@ -2,6 +2,13 @@
 
 **AutoTuner** is a smart algorithm recommendation engine that analyzes input data (arrays or graphs) and selects the most efficient algorithm based on structural and statistical features. It is designed to assist developers, educators, and learners in choosing optimal algorithms without manual trial and error.
 
+---
+
+> ⚠️ **Note:** This is a **beta release of Version 1.0** intended for testing.  
+> 🐞 Please report any bugs or provide feedback to help improve stability and performance.
+
+---
+
 ## 🚀 Key Features
 
 ### 📊 Sorting Engine

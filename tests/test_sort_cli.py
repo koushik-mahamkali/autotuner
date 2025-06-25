@@ -6,9 +6,9 @@ import pytest
 SCRIPT_PATH = os.path.join("autotuner_core", "cli", "sort_cli.py")
 
 @pytest.mark.parametrize("args", [
-    ["1", "5", "3"],                                      # default auto
-    ["1", "5", "3", "--algo", "merge"],                   # specific algo
-    ["1", "5", "3", "--algo", "all_algorithms"],          # all algos
+    ["1", "5", "3"],                                      
+    ["1", "5", "3", "--algo", "merge"],                   
+    ["1", "5", "3", "--algo", "all_algorithms"],         
 ])
 def test_sorting_cli_success(args):
     result = subprocess.run(
